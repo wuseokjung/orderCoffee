@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Coffee Online Store API
+  description: |-
+    This is a specification document for an OPENAPI that allows clients to order coffee from their mobile devices without physically getting in line at the store.
+  version: 1.0.11
+
+servers:
+  - url: https://ordercoffeeonline.swagger.io/api/v3
+
+paths:
+  /coffee:
+    get:
+      summary: Returns a list of coffee
+      description: Returns a list of coffee that are in stock for customers
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+              type: array
+              items:
+                type: string
+        '404':
+          description: All coffee are out of stock.
+    post:
+      summary: Adds a new coffee to the menu
+      requestBody:
+        required: true
+        content:
+          schema:
+            type: object
+            properties:
+              coffeeName:
+                type: string
+      responses:
+        '201':
+          description: Created.
+        '405':
+          description: Input is invalid.
+    delete:
+      summary: Deletes a coffee from the menu
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        '400':
+          description: Bad request. Input value is invalid.
+        '500':
+          description: Unexpected error. Try again.
